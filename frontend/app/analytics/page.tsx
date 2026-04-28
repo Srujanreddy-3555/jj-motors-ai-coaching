@@ -40,6 +40,8 @@ function ScoreChart({ history }: { history: AnalyticsData['score_history'] }) {
 
   const scores = history.map((h) => h.overall_score ?? 0);
   const maxScore = 100;
+  const firstDate = history[0]?.date;
+  const lastDate = history[history.length - 1]?.date;
   const points = scores.map((s, i) => {
     const x = history.length === 1 ? 50 : (i / (history.length - 1)) * 100;
     const y = 100 - (s / maxScore) * 100;
@@ -91,8 +93,8 @@ function ScoreChart({ history }: { history: AnalyticsData['score_history'] }) {
         {/* X-axis labels */}
         {history.length > 1 && (
           <div className="flex justify-between text-[10px] text-gray-400 mt-1 px-0.5">
-            <span>{history[0]!.date ? new Date(history[0]!.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</span>
-            <span>{history[history.length - 1]!.date ? new Date(history[history.length - 1]!.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</span>
+            <span>{firstDate ? new Date(firstDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</span>
+            <span>{lastDate ? new Date(lastDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</span>
           </div>
         )}
       </div>
